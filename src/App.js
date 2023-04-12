@@ -9,17 +9,19 @@ import Location from "./components/cards/location";
 
 function App() {
   // document.body.className = "bodyRainy";
+
+  console.log(process.env.REACT_APP_ACCUWEATHER_API_KEY);
   const [weatherDetails, setWeatherDetails] = React.useState([]);
   const [headlines, setHeadlines] =  React.useState({});
   React.useEffect(() => {
 
     navigator.geolocation.getCurrentPosition(async (position) => {
       const { data } = await axios.get(
-        `${LOCATION_API_URL}?apikey=3ynwLeyVaG5i0ibX0jo5n9OLRAp1ABHz&q=${position.coords.latitude},${position.coords.longitude}`
+        `${LOCATION_API_URL}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${position.coords.latitude},${position.coords.longitude}`
       );
 
       const results = await axios.get(
-        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=3ynwLeyVaG5i0ibX0jo5n9OLRAp1ABHz&details=false&metric=false&language=en-us`
+        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&details=false&metric=false&language=en-us`
       );
 
       const {

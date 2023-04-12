@@ -15,7 +15,7 @@ const Location = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const locationDetails = async () => {
         const { data } = await axios.get(
-          `${LOCATION_API_URL}?apikey=3ynwLeyVaG5i0ibX0jo5n9OLRAp1ABHz&q=${position.coords.latitude},${position.coords.longitude}`
+          `${LOCATION_API_URL}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${position.coords.latitude},${position.coords.longitude}`
         );
         // console.log(data);
         const { AdministrativeArea, ParentCity } = data;
