@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import "./App.css";
+import WeatherDetails from "./components/weather/weatherDetails";
+import { LOCATION_API_URL } from "./constants/constants";
+import axios from "axios";
+import CurrentTime from "./components/cards/currentTime";
+import HeadLines from "./components/cards/headlines";
+import Location from "./components/cards/location";
 
 function App() {
+  // document.body.className = "bodyRainy";
+  const [weatherDetails, setWeatherDetails] = React.useState([]);
+  const [headlines, setHeadlines] =  React.useState({});
+  React.useEffect(() => {
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { data } = await axios.get(
+        `${LOCATION_API_URL}?apikey=3ynwLeyVaG5i0ibX0jo5n9OLRAp1ABHz&q=${position.coords.latitude},${position.coords.longitude}`
+      );
+
+      const results = await axios.get(
+        `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=3ynwLeyVaG5i0ibX0jo5n9OLRAp1ABHz&details=false&metric=false&language=en-us`
+      );
+
+      const {
+        data: { DailyForecasts, Headline },
+      } = results;
+
+      let dayOne = (DailyForecasts[0]["Day"]["IconPhrase"]).toLowerCase();
+      if(dayOne.includes("showers")){
+        document.body.className = "bodyRainy";
+      } else if(dayOne.includes("rain")){
+        document.body.className = "bodyRainy";
+      } else if(dayOne.includes("cloudy")){
+        document.body.className = "bodyCloudy";
+      } else if(dayOne.includes("storms") || dayOne.includes("t-storms") || dayOne.includes("storm")){
+        document.body.className = "bodyStormy";
+      } else {
+        document.body.className = "bodySunny"
+      }
+      setWeatherDetails(DailyForecasts);
+      setHeadlines(Headline);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {headlines && <HeadLines data={headlines}/>}
+      <Location />
+      {weatherDetails && <WeatherDetails details={weatherDetails}/>}
+      <CurrentTime />
     </div>
   );
 }
