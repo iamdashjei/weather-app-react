@@ -1,5 +1,5 @@
-export const WEATHER_API_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/";
-export const LOCATION_API_URL = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
+export const WEATHER_API_URL = "https://dataservice.accuweather.com/forecasts/v1/daily/5day/";
+export const LOCATION_API_URL = "https://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
 
 export const WeatherData = {
   Headline: {
