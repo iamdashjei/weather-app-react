@@ -8,9 +8,7 @@ import HeadLines from "./components/cards/headlines";
 import Location from "./components/cards/location";
 
 function App() {
-  // document.body.className = "bodyRainy";
-
-  console.log(process.env.REACT_APP_ACCUWEATHER_API_KEY);
+  
   const [weatherDetails, setWeatherDetails] = React.useState([]);
   const [headlines, setHeadlines] =  React.useState({});
   React.useEffect(() => {
