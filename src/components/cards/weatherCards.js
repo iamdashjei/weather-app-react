@@ -9,7 +9,6 @@ import WeatherStatusIcon from "../../util/weatherStatusIcon";
 
 
 const WeatherCard = ({details, category}) => {
-  // console.log(category);
 
   const date = Date.parse(details.Date);
   const { Day } = details;

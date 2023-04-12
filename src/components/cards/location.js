@@ -17,7 +17,6 @@ const Location = () => {
         const { data } = await axios.get(
           `${LOCATION_API_URL}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${position.coords.latitude},${position.coords.longitude}`
         );
-        // console.log(data);
         const { AdministrativeArea, ParentCity } = data;
         setCurrentPlace(data.LocalizedName);
         setCity(ParentCity.LocalizedName);
