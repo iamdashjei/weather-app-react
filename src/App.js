@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./App.css";
 import WeatherDetails from "./components/weather/weatherDetails";
-import { LOCATION_API_URL } from "./constants/constants";
+import { LOCATION_API_URL, WEATHER_API_URL } from "./constants/constants";
 import axios from "axios";
 import CurrentTime from "./components/cards/currentTime";
 import HeadLines from "./components/cards/headlines";
@@ -19,7 +19,7 @@ function App() {
       );
 
       const results = await axios.get(
-        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&details=false&metric=false&language=en-us`
+        `${WEATHER_API_URL}${data.Key}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&details=false&metric=false&language=en-us`
       );
 
       const {
