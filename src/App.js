@@ -19,7 +19,7 @@ function App() {
       );
 
       const results = await axios.get(
-        `${WEATHER_API_URL}${data.Key}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&details=false&metric=false&language=en-us`
+        `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${data.Key}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&details=false&metric=false&language=en-us`
       );
 
       const {
